@@ -1,65 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>未来回音</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>未来回音</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="background"></div>
 
-  <div id="floatingLights"></div>
-  <div id="stars-container"></div>
+    <!-- 顶部标题栏 -->
+    <header class="header">
+      <h1 class="title">未来回音</h1>
+      <button class="inbox-btn" id="inboxButton" title="收信箱">
+        ✉️
+      </button>
+    </header>
 
-  <div class="app">
-    <div class="title">未来回音</div>
-
-    <div id="inboxButton" class="inbox-btn" title="回信箱">📭</div>
-    <div id="inboxPanel" class="inbox-panel hidden" aria-hidden="true">
-      <div class="inbox-header">
-        <span>回信箱</span>
-        <button id="closeInbox" class="close-btn">✕</button>
-      </div>
-      <div id="inboxList" class="inbox-list">
-        <p class="no-letters">暂无回信记录</p>
-      </div>
-      <div style="margin-top:12px;text-align:center">
-        <button id="clearInboxBtn" class="control-btn">清空回信箱</button>
-      </div>
+    <!-- 信封动画 -->
+    <div class="envelope-container" id="envelope">
+      <div class="envelope">💌</div>
     </div>
 
-    <div id="envelopeContainer" class="envelope-container">
-      <div id="envelope" class="envelope" title="点击打开信封"></div>
-      <div class="envelope-hint">点击信封或等待自动展开</div>
-    </div>
-
-    <div id="inputCard" class="input-card hidden" aria-hidden="true">
-      <div class="prompt">
-        <textarea id="messageInput" placeholder="写下此刻的心声、愿望或想对未来说的话..."></textarea>
-        <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;">
-          <input id="cityInput" placeholder="可选：输入城市查看本地天气" style="padding:8px 12px;border-radius:8px;border:none;box-shadow:inset 0 2px 6px rgba(0,0,0,0.05)" />
-          <button id="weatherBtn" class="control-btn">更新天气</button>
+    <!-- 主内容区域 -->
+    <main class="content" id="mainContent" style="display:none;">
+      <section class="input-section">
+        <textarea
+          id="userInput"
+          placeholder="写下你想对未来说的话..."
+        ></textarea>
+        <div class="controls">
+          <button id="generateButton">生成未来回音</button>
+          <button id="voiceButton">🔊 语音播放</button>
+          <button id="stopVoiceButton">⏹️ 停止播放</button>
         </div>
-        <div style="text-align:center;">
-          <button id="generateBtn" class="btn">生成未来回信</button>
+      </section>
+
+      <section class="reply-section" id="replySection">
+        <div class="letter" id="letterContent">
+          <p>这里将显示来自未来的回信...</p >
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
-    <div id="letterCard" class="letter hidden" aria-hidden="true">
-      <div id="letterContent" class="content">来自未来的回信将显示在这里。</div>
-      <div class="controls">
-        <button id="playBtn" class="control-btn">播放语音</button>
-        <button id="pauseBtn" class="control-btn hidden">停止播放</button>
-        <button id="collapseBtn" class="control-btn">收起回信</button>
-      </div>
-    </div>
-  </div>
+    <!-- 天气与更新按钮 -->
+    <footer class="footer">
+      <div id="weatherDisplay">正在加载天气...</div>
+      <button id="refreshWeather" title="更新天气">🔄</button>
+    </footer>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
-
