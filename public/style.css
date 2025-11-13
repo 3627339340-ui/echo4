@@ -1,39 +1,152 @@
-:root{
-  --glass: rgba(255,255,255,0.24);
-  --glass-strong: rgba(255,255,255,0.96);
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "PingFang SC", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at center, #141e30, #243b55);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow: hidden;
+  transition: background 1s ease;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:"PingFang SC","Helvetica Neue",Arial,sans-serif;overflow:hidden}
-body{
-  display:flex;align-items:center;justify-content:center;
-  transition:background 1.2s ease;position:relative;color:#222;
-  background: linear-gradient(160deg,#f8efe9,#efe5df);
+
+/* 动态背景层 */
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.05), transparent);
+  z-index: -1;
+  transition: background 2s ease;
 }
-.blob{position:absolute;border-radius:50%;filter:blur(72px);opacity:0.26;z-index:0;pointer-events:none}
-.blob.b1{width:340px;height:340px;left:6%;top:8%;background:rgba(240,200,220,0.9)}
-.blob.b2{width:420px;height:420px;right:8%;bottom:6%;background:rgba(200,220,255,0.9)}
-.blob.b3{width:260px;height:260px;left:40%;bottom:10%;background:rgba(240,230,200,0.85)}
-.star{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.9);opacity:0;z-index:0;pointer-events:none}
-.app{width:100%;max-width:1200px;height:90vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:10}
-.title{position:absolute;top:8%;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.95);font-size:3.2rem;font-weight:300;letter-spacing:2px;text-shadow:0 8px 32px rgba(0,0,0,0.28);z-index:10}
-.inbox-btn{position:absolute;top:28px;left:36px;font-size:1.6rem;cursor:pointer;color:rgba(255,255,255,0.95);text-shadow:0 6px 18px rgba(0,0,0,0.22);z-index:20}
-.inbox-panel{position:absolute;top:80px;left:36px;width:360px;max-height:70vh;overflow-y:auto;border-radius:20px;background:rgba(255,255,255,0.24);backdrop-filter:blur(18px);box-shadow:0 10px 40px rgba(0,0,0,0.2);padding:18px;z-index:30;color:#2c3e50}
-.inbox-header{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:1.1rem;margin-bottom:10px}
-.envelope-container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:18px;transition:opacity 0.6s}
-.envelope{width:260px;height:170px;border-radius:16px;background:linear-gradient(135deg,#ffffff,#f8f9fa);box-shadow:0 24px 80px rgba(6,10,20,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;animation:floatEnvelope 3s ease-in-out infinite;border:1px solid rgba(0,0,0,0.04)}
-.envelope::before{content:"";position:absolute;top:0;left:0;width:100%;height:60%;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(135deg,#fff,#f1f3f4);border-radius:16px 16px 0 0}
-.envelope-hint{color:rgba(255,255,255,0.95);font-size:1rem;text-align:center}
-@keyframes floatEnvelope{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-8px) rotate(1deg)}50%{transform:translateY(-4px) rotate(-1deg)}75%{transform:translateY(-6px) rotate(0.5deg)}}
-.input-card{width:85%;max-width:920px;background:var(--glass);border-radius:24px;padding:40px;box-shadow:0 20px 60px rgba(6,10,20,0.12);backdrop-filter:blur(18px);z-index:12;display:flex;flex-direction:column;align-items:center}
-textarea{width:100%;min-height:260px;border-radius:16px;border:none;padding:24px;font-size:16px;resize:vertical;outline:none;background:rgba(255,255,255,0.92);box-shadow:inset 0 2px 10px rgba(16,24,40,0.04);line-height:1.8}
-.btn{margin-top:22px;padding:14px 36px;border-radius:16px;border:none;background:rgba(255,255,255,0.86);font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(6,10,20,0.08)}
-.letter{width:88%;max-width:1000px;height:78vh;background:var(--glass-strong);border-radius:24px;padding:36px;box-shadow:0 26px 80px rgba(6,10,20,0.12);z-index:12;overflow:hidden;display:flex;flex-direction:column}
-.letter .content{flex:1;overflow:auto;padding-right:8px;color:#222;line-height:1.9;font-size:16px;white-space:pre-wrap}
-.controls{display:flex;gap:16px;justify-content:center;margin-top:18px}
-.control-btn{padding:12px 24px;border-radius:14px;border:none;background:rgba(255,255,255,0.9);cursor:pointer;font-weight:700}
-.hidden{display:none !important}
-.fade-in{animation:fadeIn 0.6s ease-out}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media (max-width:780px){.title{font-size:2.2rem;top:6%}.input-card,.letter{width:92%;padding:20px}.envelope{width:200px;height:140px}.inbox-panel{width:86vw;left:7vw}}
 
+/* 顶部标题栏 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 2rem;
+}
 
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+}
+
+/* 收信箱按钮 */
+.inbox-btn {
+  background: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.inbox-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 信封动画 */
+.envelope-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  animation: fadeIn 1s ease-in-out;
+}
+.envelope {
+  font-size: 4rem;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 输入与信纸区 */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 1.5rem;
+}
+
+.input-section textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  resize: none;
+}
+
+.controls button {
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  color: #243b55;
+  font-weight: 600;
+  cursor: pointer;
+}
+.controls button:hover {
+  background: #ddd;
+}
+
+/* 信纸样式 */
+.letter {
+  background: rgba(255,255,255,0.1);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+}
+
+/* 底部天气与刷新 */
+.footer {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+#weatherDisplay {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+#refreshWeather {
+  background: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#refreshWeather:hover {
+  background: rgba(255,255,255,0.2);
+}
